@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiệp Cưới Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Montserrat', sans-serif; 
+      background: #fff8f0; 
+      color: #333; 
+      overflow-x: hidden;
+      min-width: 360px;
+      max-width: 100vw;
+    }
+
+    /* Door Animation */
+    .door-wrapper {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 9999;
+      background-color: #8b0000;
+      overflow: hidden;
+    }
+    .door {
+      position: absolute;
+      width: 50%; height: 100%;
+      top: 0;
+      background-image: url('https://i.pinimg.com/474x/cf/77/88/cf7788fed70d8546e093d874419b23b1.jpg');
+      background-size: cover;
+      background-position: center;
+      transition: transform 3s ease-in-out;
+    }
+    .door-left { 
+      left: 0; 
+      transform-origin: left center;
+      transform: translateX(0);
+    }
+    .door-right { 
+      right: 0; 
+      transform-origin: right center;
+      transform: translateX(0);
+    }
+    .door-center-icon {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: gold; padding: 20px; border-radius: 50%; font-size: 40px;
+      font-weight: bold; color: #8b0000; font-family: 'Noto Serif';
+      z-index: 10000;
+      transition: opacity 1s ease-in-out;
+    }
+
+    /* Common Styles */
+    .main-container {
+      max-width: 1200px;
+      min-width: 360px;
+      margin: 0 auto;
+      background: #fff8f0;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    .section { 
+      padding: 60px 20px; 
+      text-align: center;
+      width: 100%;
+    }
+    .circle-logo {
+      width: 80px; height: 80px; border-radius: 50%; border: 2px solid #8b0000;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: #8b0000; margin: 20px auto;
+    }
+
+    /* Section 1 - Title */
+    .section-1 h1 { 
+      font-family: 'Montserrat', sans-serif; 
+      font-size: 48px; 
+      color: #c0392b; 
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    .section-1 h2 { 
+      font-family: 'Great Vibes', cursive;
+      font-size: 36px; 
+      margin-top: 10px; 
+      color: #8b0000;
+      animation: scaleUp 2s ease-in-out;
+    }
+    @keyframes scaleUp {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .time-info { font-size: 20px; margin: 10px 0; font-weight: 500; }
+    .main-photo img { 
+      width: 70%; max-width: 300px; border-radius: 12px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin: 20px 0; 
+    }
+
+    /* Section 2 - Family Info */
+    .family-info-wrapper { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: flex-start;
+      margin-top: 40px; 
+      gap: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .family-col {
+      flex: 1;
+      opacity: 0; 
+      transition: all 1s ease; 
+      padding: 20px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 10px;
+      min-width: 150px;
+    }
+    .family-col.left {
+      transform: translateX(-50px);
+      text-align: left;
+    }
+    .family-col.right { 
+      transform: translateX(50px); 
+      text-align: right; 
+    }
+    .family-col.visible { opacity: 1; transform: translateX(0); }
+    .family-col p {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .family-col strong {
+      color: #8b0000;
+      font-size: 18px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .announcement { 
+      font-family: 'Great Vibes', cursive; 
+      font-size: 24px; margin: 30px 0 10px; 
+    }
+    .couple-name { 
+      display: flex; justify-content: center; gap: 20px; 
+      align-items: center; opacity: 0; transition: all 1s ease;
+      font-size: 24px; font-weight: 600; margin: 20px 0;
+    }
+    .couple-name.visible { opacity: 1; }
+    .couple-name span:first-child { transform: translateX(-50px); transition: transform 1s ease; }
+    .couple-name span:last-child { transform: translateX(50px); transition: transform 1s ease; }
+    .couple-name.visible span { transform: translateX(0); }
+    .couple-img img { width: 300px; border-radius: 12px; margin: 20px 0; }
+    .flower-icons { margin: 20px 0; font-size: 24px; color: #d35400; }
+
+    /* Section 3 - Gallery & Location */
+    .gallery-section {
+      display: flex; justify-content: center; align-items: flex-end;
+      gap: 15px; margin: 30px 0; flex-wrap: wrap;
+    }
+    .gallery-section img {
+      border-radius: 10px; transition: transform 0.6s ease;
+    }
+    .gallery-section img:nth-child(1),
+    .gallery-section img:nth-child(3) {
+      width: 25%; height: 200px; object-fit: cover;
+    }
+    .gallery-section img:nth-child(2) {
+      width: 30%; height: 280px; object-fit: cover;
+    }
+    .gallery-section img:hover { transform: scale(1.05); }
+
+    .event-detail {
+      display: flex; justify-content: center; flex-wrap: wrap; margin: 30px 0;
+    }
+    .event-block {
+      background: #fff; border: 2px solid #8b0000; border-radius: 10px;
+      padding: 30px; margin: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    .event-block button {
+      background: #c0392b; color: white; border: none; border-radius: 6px;
+      padding: 10px 20px; margin-top: 15px; cursor: pointer;
+    }
+
+    /* Section 4 - Calendar */
+    .calendar-section { text-align: center; margin: 40px 0; }
+    .calendar-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 10px; max-width: 500px; margin: 20px auto;
+      background: #fff; padding: 20px; border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .calendar-header {
+      font-weight: 600; color: #8b0000; padding: 10px;
+      text-align: center;
+    }
+    .calendar-day {
+      padding: 10px; text-align: center; border-radius: 5px;
+      transition: all 0.3s ease; cursor: pointer;
+    }
+    .calendar-day:hover { background: #f8f9fa; }
+    .calendar-day.wedding-day {
+      background: #c0392b; color: white; font-weight: bold;
+      position: relative;
+    }
+    .calendar-day.wedding-day::after {
+      content: '♥'; position: absolute; top: -5px; right: -5px;
+      color: red; font-size: 12px;
+    }
+    .calendar-day.other-month { color: #ccc; }
+
+    /* Section 5 - Form */
+    .form-section {
+      max-width: 600px; 
+      margin: 0 auto;
+    }
+    .form-container {
+      background: #fff; 
+      padding: 40px; 
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1); 
+      border: 2px solid #8b0000;
+    }
+    .form-container .form-control {
+      border: 2px solid #e9ecef; 
+      border-radius: 8px;
+      padding: 15px; 
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+      width: 100%;
+      font-size: 16px;
+    }
+    .form-container .form-control:focus {
+      border-color: #c0392b; 
+      box-shadow: 0 0 0 0.2rem rgba(192, 57, 43, 0.25);
+      outline: none;
+    }
+    .form-container .btn-submit {
+      background: #c0392b; 
+      border: none; 
+      padding: 15px 40px;
+      border-radius: 8px; 
+      color: white; 
+      font-weight: 600;
+      width: 100%; 
+      transition: background 0.3s ease;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .form-container .btn-submit:hover { 
+      background: #a93226; 
+      transform: translateY(-2px);
+    }
+
+    /* Section 6 - Album */
+    .album-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      padding: 20px; max-width: 800px; margin: 0 auto;
+    }
+    .album-grid img {
+      width: 100%; border-radius: 10px; opacity: 0;
+      transition: all 0.8s ease; object-fit: cover; height: 250px;
+    }
+    .album-grid img:nth-child(odd) {
+      transform: translateX(-100px);
+    }
+    .album-grid img:nth-child(even) {
+      transform: translateX(100px);
+    }
+    .album-grid img.visible { 
+      transform: translateX(0); opacity: 1; 
+    }
+
+    /* Section 7 - Thank You */
+    .thankyou-section {
+      position: relative; min-height: 400px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .thankyou-section img {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(60%);
+    }
+    .thankyou-text {
+      position: relative; z-index: 2;
+      font-size: 48px; font-family: 'Great Vibes', cursive; 
+      color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .section { 
+        padding: 40px 15px;
+      }
+      .section-1 h1 { font-size: 36px; }
+      .section-1 h2 { font-size: 28px; }
+      .family-info-wrapper {
+        max-width: 100%;
+        gap: 15px;
+      }
+      .family-col { 
+        padding: 15px;
+        min-width: 140px;
+      }
+      .family-col strong {
+        font-size: 16px;
+      }
+      .family-col p {
+        font-size: 14px;
+      }
+      .couple-name { flex-direction: column; gap: 10px; }
+      .couple-name span:first-child,
+      .couple-name span:last-child { transform: translateY(-20px); }
+      .couple-name.visible span { transform: translateY(0); }
+      .gallery-section { 
+        gap: 10px; 
+        min-width: 320px;
+      }
+      .gallery-section img:nth-child(1),
+      .gallery-section img:nth-child(3) { 
+        width: 28%; 
+        min-width: 80px;
+      }
+      .gallery-section img:nth-child(2) { 
+        width: 32%; 
+        min-width: 100px;
+      }
+      .calendar-grid { 
+        grid-template-columns: repeat(7, 1fr); 
+        font-size: 14px;
+        min-width: 280px;
+      }
+      .thankyou-text { font-size: 36px; }
+      .album-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        min-width: 300px;
+      }
+      .form-container {
+        padding: 30px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section {
+        padding: 30px 10px;
+      }
+      .family-info-wrapper {
+        gap: 10px;
+      }
+      .family-col { 
+        font-size: 13px;
+        padding: 12px;
+        min-width: 130px;
+      }
+      .family-col p {
+        margin-bottom: 6px;
+        font-size: 12px;
+      }
+      .family-col strong {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+      .gallery-section {
+        gap: 8px;
+      }
+      .gallery-section img:nth-child(1),
+      .gallery-section img:nth-child(3) { 
+        width: 26%; 
+        min-width: 70px;
+      }
+      .gallery-section img:nth-child(2) { 
+        width: 30%; 
+        min-width: 90px;
+      }
+      .album-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        min-width: 280px;
+      }
+      .calendar-grid {
+        min-width: 260px;
+        font-size: 12px;
+      }
+      .form-container {
+        padding: 25px 15px;
+      }
+      .form-container .form-control {
+        padding: 12px;
+        font-size: 14px;
+      }
+      .form-container .btn-submit {
+        padding: 12px 30px;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .section {
+        padding: 25px 8px;
+      }
+      .family-col {
+        font-size: 11px;
+        padding: 10px;
+        min-width: 120px;
+      }
+      .family-col p {
+        font-size: 11px;
+      }
+      .family-col strong {
+        font-size: 13px;
+      }
+      .gallery-section img:nth-child(1),
+      .gallery-section img:nth-child(3) { 
+        min-width: 60px;
+      }
+      .gallery-section img:nth-child(2) { 
+        min-width: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Opening Door -->
+  <div class="door-wrapper" id="doorWrapper">
+    <div class="door door-left" id="leftDoor"></div>
+    <div class="door door-right" id="rightDoor"></div>
+    <div class="door-center-icon" id="centerIcon">囍</div>
+  </div>
+
+  <!-- Section 1 - Title -->
+  <section class="section section-1" id="section1">
+    <h1>THIỆP MỜI</h1>
+    <h2>Việt Thanh - Hoài Phương</h2>
+    <div class="circle-logo">囍</div>
+    <div class="time-info">Saturday - 19:00</div>
+    <div class="time-info">30 . 11 . 2025</div>
+    <div class="main-photo">
+      <img src="https://inthudo.com/public/elfinder/upload/elfinder/TRANH%20TO%20MAU/wedding/tranh-to-mau-hinh-co-dau-chu-re-chibi-cute%20(45).jpg" alt="Wedding couple">
+    </div>
+  </section>
+
+  <!-- Section 2 - Family Info -->
+  <section class="section" id="section2">
+    <div class="circle-logo">囍</div>
+    <div class="family-info-wrapper">
+      <div class="family-col left" id="familyLeft">
+        <p><strong>Nhà Trai</strong></p>
+        <p>Ông: Nguyễn Văn A</p>
+        <p>Bà: Nguyễn Thị A</p>
+        <p>Địa chỉ: Quận 1, TP.HCM</p>
+      </div>
+      <div class="family-col right" id="familyRight">
+        <p><strong>Nhà Gái</strong></p>
+        <p>Ông: Trần Văn B</p>
+        <p>Bà: Trần Thị B</p>
+        <p>Địa chỉ: Quận 2, TP.HCM</p>
+      </div>
+    </div>
+    <div class="announcement">Trân trọng báo tin lễ thành hôn</div>
+    <div class="couple-name" id="coupleName">
+      <span>Nguyễn Việt Thanh</span>
+      <span>&</span>
+      <span>Nguyễn Hoài Phương</span>
+    </div>
+    <div class="couple-img">
+      <img src="https://inthudo.com/public/elfinder/upload/elfinder/TRANH%20TO%20MAU/wedding/tranh-to-mau-hinh-co-dau-chu-re-chibi-cute%20(45).jpg" alt="Wedding couple">
+    </div>
+    <div class="flower-icons">
+      <i class="fas fa-star"></i> <i class="fas fa-heart"></i> <i class="fas fa-dove"></i>
+    </div>
+    <div><strong>Trân Trọng Kính Mời</strong></div>
+  </section>
+
+  <!-- Section 3 - Gallery & Location -->
+  <section class="section">
+    <div class="gallery-section">
+      <img src="https://free.vector6.com/wp-content/uploads/2021/03/0000000003-hoat-hinh-co-dau-chu-re-hon-nhau-png.png" alt="Wedding image 1">
+      <img src="https://tinhocnews.com/wp-content/uploads/2024/06/co-dau-chu-re-chibi-vector-png.jpg" alt="Wedding image 2">
+      <img src="https://imakeup.vn/wp-content/uploads/2024/03/hinh-co-chu-re-chibi-anh-dai-dien.jpg" alt="Wedding image 3">
+    </div>
+    <h2>Tham dự tiệc mừng lễ thành hôn</h2>
+    <div class="event-detail">
+      <div class="event-block">
+        <p><strong>19 giờ 00</strong></p>
+        <p>Thứ 7</p>
+        <p>30 tháng 11, 2025</p>
+        <p>(Tức ngày 29/10 Ất Tỵ)</p>
+        <p><strong>BUỔI TIỆC ĐƯỢC TỔ CHỨC TẠI</strong></p>
+        <p>Nhà Hàng ABC</p>
+        <p>123 Đường Hoa Hồng, Quận 3</p>
+        <button onclick="window.open('https://maps.google.com?q=123+Hoa+Hồng+Q3','_blank')">Xem chỉ đường</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4 - Calendar -->
+  <section class="section calendar-section">
+    <h2>Tháng 11 - 2025</h2>
+    <div class="calendar-grid" id="calendar">
+      <!-- Calendar will be generated by JavaScript -->
+    </div>
+  </section>
+
+  <!-- Section 5 - Form -->
+  <section class="section">
+    <h2>Xác nhận tham dự & Gửi lời chúc</h2>
+    <div class="form-section">
+      <div class="form-container">
+        <form action="https://docs.google.com/forms/u/0/d/e/FORM_ID/formResponse" method="POST" target="_blank">
+          <input type="text" name="entry.123456" class="form-control" placeholder="Tên của bạn là gì?" required>
+          <input type="text" name="entry.123457" class="form-control" placeholder="Bạn là gì của dâu/rể nhỉ?" required>
+          <textarea name="entry.123458" class="form-control" rows="4" placeholder="Gửi lời chúc đến dâu/rể nhé"></textarea>
+          <input type="text" name="entry.123459" class="form-control" placeholder="Bạn tham dự cùng ai?">
+          <button type="submit" class="btn btn-submit">Gửi ngay</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6 - Album -->
+  <section class="section">
+    <h2>Album Ảnh</h2>
+    <div class="album-grid" id="album">
+      <img src="https://imakeup.vn/wp-content/uploads/2024/03/hinh-co-chu-re-chibi-anh-dai-dien.jpg" alt="Wedding photo 1">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhpzSN9Tq-Q6hriuUMSCiUcN1aKJR5NzxWhw&s" alt="Wedding photo 2">
+      <img src="https://chiasefilethietke.com/uploads/202405/chiasefilethietkecom-010652.jpg" alt="Wedding photo 3">
+      <img src="https://tinhocnews.com/wp-content/uploads/2024/06/download-vector-co-dau-chu-re.jpg" alt="Wedding photo 4">
+      <img src="https://imakeup.vn/wp-content/uploads/2024/03/hinh-co-chu-re-chibi-anh-dai-dien.jpg" alt="Wedding photo 5">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhpzSN9Tq-Q6hriuUMSCiUcN1aKJR5NzxWhw&s" alt="Wedding photo 6">
+      <img src="https://imakeup.vn/wp-content/uploads/2024/03/hinh-co-chu-re-chibi-anh-dai-dien.jpg" alt="Wedding photo 7">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhpzSN9Tq-Q6hriuUMSCiUcN1aKJR5NzxWhw&s" alt="Wedding photo 8">
+    </div>
+  </section>
+
+  <!-- Section 7 - Thank You -->
+  <section class="thankyou-section">
+    <img src="https://imakeup.vn/wp-content/uploads/2024/03/hinh-co-chu-re-chibi-1.jpg" alt="Thank you background">
+    <div class="thankyou-text">Thank You</div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Door opening animation
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('leftDoor').style.transform = 'translateX(-100%)';
+        document.getElementById('rightDoor').style.transform = 'translateX(100%)';
+        document.getElementById('centerIcon').style.display = 'none';
+        setTimeout(() => {
+          document.getElementById('doorWrapper').style.display = 'none';
+        }, 2000);
+      }, 2000);
+    };
+
+    // Generate November 2025 Calendar
+    function generateCalendar() {
+      const calendar = document.getElementById('calendar');
+      const daysOfWeek = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+      
+      // Add day headers
+      daysOfWeek.forEach(day => {
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'calendar-header';
+        dayHeader.textContent = day;
+        calendar.appendChild(dayHeader);
+      });
+
+      // November 2025 starts on Saturday (day 6)
+      const firstDayOfWeek = 6; // Saturday
+      const daysInMonth = 30;
+      
+      // Add empty cells for days before November 1st
+      for (let i = 0; i < firstDayOfWeek; i++) {
+        const emptyDay = document.createElement('div');
+        emptyDay.className = 'calendar-day other-month';
+        const prevMonthDay = 31 - firstDayOfWeek + i + 1; // October days
+        emptyDay.textContent = prevMonthDay;
+        calendar.appendChild(emptyDay);
+      }
+      
+      // Add days of November
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        if (day === 30) {
+          dayElement.className += ' wedding-day';
+        }
+        dayElement.textContent = day;
+        calendar.appendChild(dayElement);
+      }
+      
+      // Fill remaining cells for next month
+      const totalCells = 42; // 6 rows x 7 days
+      const filledCells = firstDayOfWeek + daysInMonth;
+      for (let day = 1; filledCells + day - 1 < totalCells; day++) {
+        const nextMonthDay = document.createElement('div');
+        nextMonthDay.className = 'calendar-day other-month';
+        nextMonthDay.textContent = day;
+        calendar.appendChild(nextMonthDay);
+      }
+    }
+
+    // Scroll animations - continuous effect
+    function checkAnimations() {
+      const left = document.getElementById('familyLeft');
+      const right = document.getElementById('familyRight');
+      const couple = document.getElementById('coupleName');
+      const images = document.querySelectorAll('#album img');
+
+      const trigger = window.innerHeight * 0.8;
+      const topTrigger = window.innerHeight * 0.2;
+      
+      // Family left animation
+      if (left) {
+        const rect = left.getBoundingClientRect();
+        if (rect.top < trigger && rect.bottom > topTrigger) {
+          left.classList.add('visible');
+        } else {
+          left.classList.remove('visible');
+        }
+      }
+      
+      // Family right animation  
+      if (right) {
+        const rect = right.getBoundingClientRect();
+        if (rect.top < trigger && rect.bottom > topTrigger) {
+          right.classList.add('visible');
+        } else {
+          right.classList.remove('visible');
+        }
+      }
+      
+      // Couple name animation
+      if (couple) {
+        const rect = couple.getBoundingClientRect();
+        if (rect.top < trigger && rect.bottom > topTrigger) {
+          couple.classList.add('visible');
+        } else {
+          couple.classList.remove('visible');
+        }
+      }
+
+      // Album images animation
+      images.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        if (rect.top < trigger && rect.bottom > topTrigger) {
+          img.classList.add('visible');
+        } else {
+          img.classList.remove('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkAnimations);
+    window.addEventListener('resize', checkAnimations);
+    
+    // Initial check when page loads
+    setTimeout(checkAnimations, 100);
+
+    // Generate calendar when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      generateCalendar();
+      // Check animations after DOM is loaded
+      setTimeout(checkAnimations, 500);
+    });
+  </script>
+</body>
+</html>
