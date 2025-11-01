@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backup
+*.backup
+*_backup/
+docs_backup/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies (nếu có)
+node_modules/
+
+# Build outputs (nếu có)
+dist/
+build/
+
+# Temp
+.tmp/
+temp/
