@@ -71,8 +71,8 @@ function generateCalendar() {
  * Handles visibility animations for various elements based on scroll position
  */
 function checkAnimations() {
-  const left = document.getElementById("familyLeft");
-  const right = document.getElementById("familyRight");
+  const groomPhoto = document.querySelector("#familyRowGroom .family-photo");
+  const bridePhoto = document.querySelector("#familyRowBride .family-photo");
   const couple = document.getElementById("coupleName");
   const images = document.querySelectorAll("#album img");
 
@@ -82,22 +82,22 @@ function checkAnimations() {
   const topTrigger = isMobile ? window.innerHeight * 0.3 : window.innerHeight * 0.2;
 
 
-  if (left) {
-    const rect = left.getBoundingClientRect();
+  if (groomPhoto) {
+    const rect = groomPhoto.getBoundingClientRect();
     if (rect.top < trigger && rect.bottom > topTrigger) {
-      left.classList.add("visible");
+      groomPhoto.classList.add("visible");
     } else {
-      left.classList.remove("visible");
+      groomPhoto.classList.remove("visible");
     }
   }
 
 
-  if (right) {
-    const rect = right.getBoundingClientRect();
+  if (bridePhoto) {
+    const rect = bridePhoto.getBoundingClientRect();
     if (rect.top < trigger && rect.bottom > topTrigger) {
-      right.classList.add("visible");
+      bridePhoto.classList.add("visible");
     } else {
-      right.classList.remove("visible");
+      bridePhoto.classList.remove("visible");
     }
   }
 

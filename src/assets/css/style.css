@@ -112,16 +112,21 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   background: linear-gradient(135deg, var(--gold), #f1c40f);
-  padding: clamp(16px, 4vw, 24px);
+  width: clamp(140px, 18vw, 220px);
+  height: clamp(140px, 18vw, 220px);
   border-radius: 50%;
-  font-size: clamp(32px, 6vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(70px, 12vw, 120px);
   font-weight: 700;
   color: var(--accent);
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Montserrat', sans-serif;
   z-index: 10001;
   box-shadow: var(--shadow-xl);
   transition: all 1s ease-in-out;
   will-change: transform, opacity;
+  line-height: 1;
 }
 
 /* layout */
@@ -242,67 +247,125 @@ body {
 /* family */
 
 .family-info-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(10px, 2.4vw, 16px);
-  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(30px, 6vw, 60px);
+  max-width: 1000px;
   margin-block: var(--element-gap);
   margin-inline: auto;
-  align-items: flex-start;
   width: 100%;
-  justify-content: center;
 }
 
-.family-col {
-  max-width: 100%;
+.family-row {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  gap: clamp(20px, 4vw, 40px);
+  align-items: center;
+  width: 100%;
+}
+
+#familyRowBride {
+  grid-template-columns: 6fr 4fr;
+}
+
+.family-photo {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.family-photo img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  border-radius: 0;
   opacity: 0;
-  transition: transform 700ms ease, opacity 700ms ease;
-  padding: clamp(10px, 2.6vw, 16px);
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(192, 57, 43, 0.2);
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(8px);
-  will-change: transform, opacity;
-  transform: translateZ(0);
-  font-size: clamp(12px, 2.8vw, 14px);
+  transform: scale(0.95);
+  transition: opacity 1s ease, transform 1s ease;
 }
 
-.family-col.left {
-  opacity: 0;
-  transform: translateX(-36px);
-  text-align: left;
-}
-
-.family-col.right {
-  opacity: 0;
-  transform: translateX(36px);
-  text-align: right;
-}
-
-.family-col.visible {
+.family-photo.visible img {
   opacity: 1;
-  transform: translateX(0);
+  transform: scale(1);
 }
 
-.family-col strong {
+.family-info {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: auto;
+}
+
+.family-info.left {
+  align-items: center;
+  text-align: center;
+}
+
+.family-info.right {
+  align-items: center;
+  text-align: center;
+}
+
+.family-info strong {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: clamp(16px, 2.4vw, 18px);
-  letter-spacing: .01em;
+  font-size: clamp(20px, 3.5vw, 26px);
+  letter-spacing: .02em;
   color: var(--accent);
   display: block;
-  margin-bottom: clamp(8px, 1.5vw, 12px);
+  margin-bottom: clamp(12px, 2vw, 16px);
 }
 
-.family-col p,
-.family-col address {
+.family-info p,
+.family-info address {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  font-size: var(--fs-body);
+  font-size: clamp(14px, 2.2vw, 16px);
   line-height: var(--lh-normal);
-  margin-bottom: clamp(4px, 1vw, 6px);
+  margin-bottom: clamp(6px, 1.2vw, 8px);
   color: var(--ink);
+  font-style: normal;
+}
+
+.person-icon {
+  margin-top: clamp(16px, 3vw, 24px);
+  padding-top: clamp(16px, 3vw, 24px);
+  border-top: 2px solid rgba(192, 57, 43, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(4px, 1vw, 6px);
+}
+
+.person-icon i {
+  font-size: clamp(32px, 5vw, 48px);
+  color: var(--gold);
+}
+
+.person-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(16px, 2.8vw, 20px);
+  font-weight: 500;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.person-name:last-of-type {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(32px, 5vw, 42px);
+  font-weight: 400;
+  color: var(--accent);
 }
 
 .announcement {
@@ -314,6 +377,7 @@ body {
   margin: var(--element-gap) 0 var(--heading-margin);
 }
 
+/* COMMENTED OUT - couple-name section
 .couple-name {
   display: flex;
   justify-content: center;
@@ -321,7 +385,7 @@ body {
   gap: var(--element-gap);
   opacity: 0;
   transition: all 800ms cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: 'Great Vibes', cursive;  /* đổi từ Montserrat → Great Vibes */
+  font-family: 'Great Vibes', cursive;
   font-size: var(--fs-script-md);
   line-height: var(--lh-tight);
   font-weight: 400;
@@ -346,11 +410,10 @@ body {
   display: inline-block;
 }
 
-
-
 .couple-name.visible span {
   transform: translateX(0);
 }
+*/
 
 .couple-img {
   margin: var(--element-gap) 0;
@@ -898,6 +961,7 @@ body.lightbox-open {
     text-align: center;
   }
   
+  /* COMMENTED OUT
   .couple-name {
     flex-direction: column;
     gap: 12px;
@@ -911,6 +975,7 @@ body.lightbox-open {
   .couple-name.visible span {
     transform: translateY(0);
   }
+  */
   
   .album-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -924,19 +989,59 @@ body.lightbox-open {
   }
   
   .family-info-wrapper {
-    gap: clamp(8px, 1.8vw, 12px);
-    margin-block: clamp(10px, 2vw, 14px);
+    gap: clamp(20px, 4vw, 30px);
   }
   
-  .family-col {
-    padding: clamp(8px, 2vw, 12px);
-    font-size: clamp(11px, 2.5vw, 13px);
-    text-align: center;
+  .family-row {
+    grid-template-columns: 4fr 6fr;
+    gap: clamp(8px, 2vw, 12px);
   }
   
-  .family-col.left,
-  .family-col.right {
+  #familyRowBride {
+    grid-template-columns: 6fr 4fr;
+  }
+  
+  .family-photo {
+    height: auto;
+  }
+  
+  .family-photo img {
+    aspect-ratio: 3/4;
+  }
+  
+  .family-info {
     text-align: center;
+    min-height: auto;
+    padding: 0;
+  }
+  
+  .family-info strong {
+    font-size: clamp(16px, 3vw, 20px);
+    margin-bottom: clamp(6px, 1.2vw, 10px);
+  }
+  
+  .family-info p,
+  .family-info address {
+    font-size: clamp(12px, 2vw, 14px);
+    margin-bottom: clamp(3px, 0.8vw, 5px);
+  }
+  
+  .person-icon {
+    margin-top: clamp(8px, 1.6vw, 12px);
+    padding-top: clamp(8px, 1.6vw, 12px);
+    gap: clamp(4px, 1vw, 8px);
+  }
+  
+  .person-icon i {
+    font-size: clamp(22px, 4vw, 30px);
+  }
+  
+  .person-name {
+    font-size: clamp(14px, 2.5vw, 16px);
+  }
+  
+  .person-name:last-of-type {
+    font-size: clamp(24px, 4.5vw, 30px);
   }
   
   .event-detail .event-block {
@@ -955,6 +1060,7 @@ body.lightbox-open {
     padding: clamp(14px, 3vw, 20px);
   }
   
+  /* COMMENTED OUT
   .couple-name {
     flex-direction: column;
     gap: 8px;
@@ -968,6 +1074,7 @@ body.lightbox-open {
   .couple-name.visible span {
     transform: translateY(0);
   }
+  */
   
   /* Album remains 2 columns on mobile */
   .album-grid {

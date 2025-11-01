@@ -56,28 +56,54 @@
       <h2 id="family-info-title" class="sr-only">Thông tin gia đình</h2>
 
       <div class="family-info-wrapper">
-        <article class="family-col left" id="familyLeft">
-          <header><strong>Nhà Trai</strong></header>
-          <p>Ông: Nguyễn Văn Việt</p>
-          <p>Bà: Nguyễn Thị Thanh Loan</p>
-          <address>Địa chỉ: Vĩnh Bình, Châu Thành, An Giang</address>
-        </article>
+        <!-- Row 1: Ảnh trái + Thông tin Nhà Trai phải -->
+        <div class="family-row" id="familyRowGroom">
+          <figure class="family-photo left">
+            <img src="./assets/images/main.JPG" alt="Ảnh chú rể Việt Thanh" loading="lazy">
+          </figure>
+          
+          <article class="family-info right">
+            <header><strong>Nhà Trai</strong></header>
+            <p>Ông Nguyễn Văn Việt</p>
+            <p>Bà Nguyễn Thị Thanh Loan</p>
+            <address>Vĩnh Bình - Châu Thành</address>
+            <address>An Giang</address>
+            <div class="person-icon">
+              <i class="fas fa-user-tie"></i>
+               <p class="person-name">Chú Rễ</p>
+              <p class="person-name">Việt Thanh</p>
+            </div>
+          </article>
+        </div>
 
-        <article class="family-col right" id="familyRight">
-          <header><strong>Nhà Gái</strong></header>
-          <p>Ông: Nguyễn Văn Hoàng</p>
-          <p>Bà: Nguyễn Thị Phương</p>
-          <address>Địa chỉ: Tân Định, Tuy An, Phú Yên</address>
-        </article>
+        <!-- Row 2: Thông tin Nhà Gái trái + Ảnh phải -->
+        <div class="family-row" id="familyRowBride">
+          <article class="family-info left">
+            <header><strong>Nhà Gái</strong></header>
+            <p>Ông Nguyễn Văn Hoàng</p>
+            <p>Bà Nguyễn Thị Phương</p>
+            <address>An Hòa Hải - Tuy An</address>
+            <address>Phú Yên</address>
+            <div class="person-icon">
+              <i class="fas fa-user"></i>
+              <p class="person-name">Cô Dâu</p>
+              <p class="person-name">Hoài Phương</p>
+            </div>
+          </article>
+          
+          <figure class="family-photo right">
+            <img src="./assets/images/main.JPG" alt="Ảnh cô dâu Hoài Phương" loading="lazy">
+          </figure>
+        </div>
       </div>
 
       <p class="announcement">Trân trọng báo tin lễ thành hôn</p>
 
-      <div class="couple-name" id="coupleName">
+      <!-- <div class="couple-name" id="coupleName">
         <span>Nguyễn Việt Thanh</span>
         <span aria-hidden="true">&</span>
         <span>Nguyễn Hoài Phương</span>
-      </div>
+      </div> -->
 
       <figure class="couple-img">
         <img src="./assets/images/main.JPG" alt="Hình cặp đôi Việt Thanh và Hoài Phương" loading="lazy">
