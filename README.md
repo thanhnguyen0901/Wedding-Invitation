@@ -113,9 +113,27 @@ python -m http.server 8000
 # Truy cập: http://localhost:8000
 ```
 
-### Deploy
+### Deploy lên GitHub Pages
+
+#### Bước 1: Cấu hình Repository
+1. Vào **Settings** → **Pages**
+2. **Source**: Chọn **GitHub Actions** (không chọn branch)
+
+#### Bước 2: Push Code
+```bash
+git add .
+git commit -m "Setup GitHub Pages deployment"
+git push origin main
+```
+
+#### Bước 3: Truy cập Website
+- URL: `https://<username>.github.io/<repo-name>/`
+- Ví dụ: `https://thanhnguyen0901.github.io/Wedding-Invitation/`
+
+**Chi tiết**: Xem [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+### Deploy khác
 - **Netlify/Vercel**: Drag & drop thư mục `src/`
-- **GitHub Pages**: Upload và set source folder
 - **Không cần build step**
 
 ## ⚙️ Hướng Dẫn Tuỳ Biến
