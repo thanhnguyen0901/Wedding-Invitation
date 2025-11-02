@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,34 +24,53 @@
 
 <body>
   <a class="sr-only" href="#main-content">Bỏ qua và đến nội dung chính</a>
-  <div class="door-wrapper" id="doorWrapper" aria-hidden="true">
+  <!-- <div class="door-wrapper" id="doorWrapper" aria-hidden="true">
     <div class="door door-left" id="leftDoor"></div>
     <div class="door door-right" id="rightDoor"></div>
     <div class="door-center-icon" id="centerIcon">囍</div>
-  </div>
+  </div> -->
 
   <main id="main-content" class="main-container">
     <section class="section section-1" id="section1" aria-labelledby="invitation-title">
       <header>
         <h1 id="invitation-title">THIỆP MỜI</h1>
-        <h2>Việt Thanh - Hoài Phương</h2>
+        <h2>Việt Thanh & Hoài Phương</h2>
       </header>
 
-      <div class="circle-logo" aria-label="Biểu tượng hạnh phúc">囍</div>
-
-      <div class="event-time">
-        <time datetime="2025-11-30T19:00" class="time-info">Saturday - 19:00</time>
-        <time datetime="2025-11-30" class="time-info">30 . 11 . 2025</time>
-      </div>
+      <!-- <div class="circle-logo" aria-label="Biểu tượng hạnh phúc">囍</div> -->
 
       <figure class="main-photo">
-        <img src="./assets/images/main.JPG" alt="Hình minh họa cặp đôi cưới Việt Thanh và Hoài Phương"
+        <img src="./assets/images/HUG05792_NoDate.JPG" alt="Hình minh họa cặp đôi cưới Việt Thanh và Hoài Phương"
           loading="lazy">
       </figure>
+
+      <div class="event-time">
+        <div class="time-left">
+          <time class="time-hour" datetime="2025-11-30T11:00">11:00</time>
+          <div class="time-day">Chủ Nhật</div>
+        </div>
+        <div class="divider"></div>
+        <div class="time-right">
+          <div class="date-main">
+            <time class="date-number" datetime="2025-11-30">30.11</time>
+            <div class="date-year">
+              <span>20</span><span>25</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lunar-date">(Tức ngày 29 tháng 10 năm Ất Tỵ)</div>
+
+      <blockquote class="wedding-quote">
+        <p>
+          <span class="quote-line">Hôn nhân là chuyện cả đời ,</span>
+          <span class="quote-line">Yêu người vừa ý , cưới người mình thương ...</span>
+        </p>
+      </blockquote>
     </section>
 
     <section class="section" id="section2" aria-labelledby="family-info-title">
-      <div class="circle-logo" aria-hidden="true">囍</div>
+      <!-- <div class="circle-logo" aria-hidden="true">囍</div> -->
 
       <h2 id="family-info-title" class="sr-only">Thông tin gia đình</h2>
 
@@ -61,16 +80,16 @@
           <figure class="family-photo left">
             <img src="./assets/images/main.JPG" alt="Ảnh chú rể Việt Thanh" loading="lazy">
           </figure>
-          
+
           <article class="family-info right">
             <header><strong>Nhà Trai</strong></header>
-            <p>Ông Nguyễn Văn Việt</p>
-            <p>Bà Nguyễn Thị Thanh Loan</p>
+            <p class="parent-name">Ông: Nguyễn Văn Việt</p>
+            <p class="parent-name">Bà: Nguyễn Thị Thanh Loan</p>
             <address>Vĩnh Bình - Châu Thành</address>
             <address>An Giang</address>
             <div class="person-icon">
               <i class="fas fa-user-tie"></i>
-               <p class="person-name">Chú Rễ</p>
+              <p class="person-name">Chú Rễ</p>
               <p class="person-name">Việt Thanh</p>
             </div>
           </article>
@@ -80,8 +99,8 @@
         <div class="family-row" id="familyRowBride">
           <article class="family-info left">
             <header><strong>Nhà Gái</strong></header>
-            <p>Ông Nguyễn Văn Hoàng</p>
-            <p>Bà Nguyễn Thị Phương</p>
+            <p class="parent-name">Ông: Nguyễn Văn Hoàng</p>
+            <p class="parent-name">Bà: Nguyễn Thị Phương</p>
             <address>An Hòa Hải - Tuy An</address>
             <address>Phú Yên</address>
             <div class="person-icon">
@@ -90,14 +109,14 @@
               <p class="person-name">Hoài Phương</p>
             </div>
           </article>
-          
+
           <figure class="family-photo right">
             <img src="./assets/images/main.JPG" alt="Ảnh cô dâu Hoài Phương" loading="lazy">
           </figure>
         </div>
       </div>
 
-      <p class="announcement">Trân trọng báo tin lễ thành hôn</p>
+      <!-- <p class="announcement">Trân trọng báo tin lễ thành hôn</p> -->
 
       <!-- <div class="couple-name" id="coupleName">
         <span>Nguyễn Việt Thanh</span>
@@ -105,21 +124,22 @@
         <span>Nguyễn Hoài Phương</span>
       </div> -->
 
-      <figure class="couple-img">
+      <!-- <figure class="couple-img">
         <img src="./assets/images/main.JPG" alt="Hình cặp đôi Việt Thanh và Hoài Phương" loading="lazy">
-      </figure>
+      </figure> -->
 
-      <div class="flower-icons" aria-hidden="true">
+      <!-- <div class="flower-icons" aria-hidden="true">
         <i class="fas fa-star"></i>
         <i class="fas fa-heart"></i>
         <i class="fas fa-dove"></i>
-      </div>
-
-      <p><strong>Trân Trọng Kính Mời</strong></p>
+      </div> -->
     </section>
-
     <!-- Gallery & Event Details Section -->
-    <section class="section" aria-labelledby="event-details-title">
+    <section class="section invitation-section" aria-labelledby="invitation-section-title">
+      <h2 class="invitation-title">Thư Mời</h2>
+      <p class="invitation-subtitle">THAM DỰ LỄ CƯỚI CỦA <span class="couple-names">VIỆT THANH & HOÀI PHƯƠNG</span></p>
+
+      <!-- Gallery Carousel - Giữ nguyên như trước -->
       <div class="gallery-section" role="img" aria-label="Bộ sưu tập hình ảnh cưới">
         <div class="gallery-track">
           <img src="./assets/images/IMG_5377.JPG" alt="Hình minh họa cô dâu chú rể hôn nhau" loading="lazy">
@@ -138,37 +158,101 @@
         </div>
       </div>
 
-      <h2 id="event-details-title">Tham dự tiệc mừng lễ thành hôn</h2>
+      <div class="heart-decoration" aria-hidden="true">
+        <svg width="120" height="100" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M35 25C35 15 45 10 55 20C65 10 75 15 75 25C75 40 55 55 55 55C55 55 35 40 35 25Z" stroke="#c9b896"
+            stroke-width="2" fill="none" />
+          <path d="M65 35C65 25 75 20 85 30C95 20 105 25 105 35C105 50 85 65 85 65C85 65 65 50 65 35Z" stroke="#c9b896"
+            stroke-width="2" fill="none" />
+        </svg>
+      </div>
 
       <div class="event-layout">
-
         <div class="event-detail">
           <article class="event-block">
-            <header>
-              <p><strong><time datetime="19:00">19 giờ 00</time></strong></p>
-              <p>Thứ 7</p>
-              <p><time datetime="2025-11-30">30 tháng 11, 2025</time></p>
-              <p>(Tức ngày 29/10 Ất Tỵ)</p>
-            </header>
+            <div class="event-time-section">
+              <!-- Hàng 1: Ảnh | Vào Lúc & Chủ Nhật | Ảnh -->
+              <div class="event-row row-1">
+                <div class="event-col left">
+                  <img src="https://imakeup.vn/wp-content/uploads/2024/03/hinh-co-chu-re-chibi-1.jpg" alt="Cô dâu chú rể">
+                </div>
 
-            <div class="venue-info">
-              <p><strong>BUỔI TIỆC ĐƯỢC TỔ CHỨC TẠI</strong></p>
-              <p>Nhà Hàng ABC</p>
-              <address>123 Đường Hoa Hồng, Quận 3</address>
+                <div class="event-col center">
+                  <div class="event-label">Vào Lúc</div>
+                  <div class="event-day">Chủ Nhật</div>
+                </div>
+
+                <div class="event-col right">
+                  <img src="https://imakeup.vn/wp-content/uploads/2024/03/hinh-co-chu-re-chibi-1.jpg" alt="Cặp đôi cưới">
+                </div>
+              </div>
+
+              <!-- Hàng 2: 16 giờ 30 | 19 | Năm 2025 -->
+              <div class="event-row row-2">
+                <div class="event-col left">
+                  <div class="event-time-text">16 giờ 30</div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="event-col center">
+                  <div class="event-date">
+                    <span class="day">19</span>
+                  </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="event-col right">
+                  <div class="event-year">Năm 2025</div>
+                </div>
+              </div>
+
+              <!-- Hàng 3: Không có | Tháng 10 | Không có -->
+              <div class="event-row row-3">
+                <div class="event-col left"></div>
+
+                <div class="event-col center">
+                  <div class="event-date">
+                    <span class="month">Tháng 10</span>
+                  </div>
+                </div>
+
+                <div class="event-col right"></div>
+              </div>
             </div>
 
-            <button type="button" onclick="window.open('https://maps.google.com?q=123+Hoa+Hồng+Q3','_blank')"
-              aria-label="Xem chỉ đường đến nhà hàng trên Google Maps">
-              Xem chỉ đường
-            </button>
+            <!-- Hàng 4: Lunar date -->
+            <div class="lunar-date">( Tức Ngày 28 Tháng 08 Năm Ất Tỵ )</div>
           </article>
         </div>
-
-
         <div class="calendar-pane">
-          <h3 id="calendar-title">Tháng 11 - 2025</h3>
-          <div class="calendar-grid" id="calendar" role="grid" aria-label="Lịch tháng 11 năm 2025">
-
+          <h2 class="save-title">
+            <span>save</span>
+            <span class="the">the</span>
+            <span>date</span>
+          </h2>
+          <h3 class="month-year">THÁNG 11 - 2025</h3>
+          
+          <div class="calendar" role="grid" aria-label="Lịch tháng 11 năm 2025">
+            <div class="calendar-row header">
+              <div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div><div>CN</div>
+            </div>
+            <div class="calendar-row">
+              <div></div><div></div><div></div><div></div><div></div><div>1</div><div>2</div>
+            </div>
+            <div class="calendar-row">
+              <div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+            </div>
+            <div class="calendar-row">
+              <div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div>
+            </div>
+            <div class="calendar-row">
+              <div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div>
+            </div>
+            <div class="calendar-row">
+              <div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div class="highlight">30</div>
+            </div>
           </div>
         </div>
       </div>

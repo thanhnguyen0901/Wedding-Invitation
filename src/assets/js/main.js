@@ -81,7 +81,7 @@ function checkAnimations() {
   const trigger = isMobile ? window.innerHeight * 0.7 : window.innerHeight * 0.8;
   const topTrigger = isMobile ? window.innerHeight * 0.3 : window.innerHeight * 0.2;
 
-
+  // Family photos animation
   if (groomPhoto) {
     const rect = groomPhoto.getBoundingClientRect();
     if (rect.top < trigger && rect.bottom > topTrigger) {
@@ -91,7 +91,7 @@ function checkAnimations() {
     }
   }
 
-
+  // Bride photo animation
   if (bridePhoto) {
     const rect = bridePhoto.getBoundingClientRect();
     if (rect.top < trigger && rect.bottom > topTrigger) {
@@ -112,6 +112,7 @@ function checkAnimations() {
   }
 
 
+  // Album images animation
   images.forEach((img) => {
     const rect = img.getBoundingClientRect();
     if (rect.top < trigger && rect.bottom > topTrigger) {
@@ -137,26 +138,88 @@ function bindGalleryActive() {
   const gallery = document.querySelector('.gallery-section');
   if (!gallery) return;
   
+  const track = gallery.querySelector('.gallery-track');
+  if (!track) return;
+  
   const images = Array.from(gallery.querySelectorAll('img'));
   if (images.length === 0) return;
-  
 
-  images[0].classList.add('is-active');
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersectionRatio >= 0.6) {
-        entry.target.classList.add('is-active');
-      } else {
-        entry.target.classList.remove('is-active');
-      }
-    });
-  }, { 
-    root: gallery, 
-    threshold: 0.6 
+  // Touch swipe functionality
+  let startX = 0;
+  let currentTranslate = 0;
+  let isDragging = false;
+  let animationPaused = false;
+
+  gallery.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+    animationPaused = true;
+    track.style.animationPlayState = 'paused';
+  }, {passive: true});
+
+  gallery.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const currentX = e.touches[0].clientX;
+    const diff = currentX - startX;
+    currentTranslate = diff;
+    
+    // Apply transform for smooth dragging
+    const currentTransform = track.style.transform || 'translateX(0)';
+    const match = currentTransform.match(/translateX\(([^)]+)\)/);
+    const baseTranslate = match ? parseFloat(match[1]) : 0;
+    track.style.transform = `translateX(${baseTranslate + diff}px)`;
+  }, {passive: true});
+
+  gallery.addEventListener('touchend', () => {
+    isDragging = false;
+    startX = 0;
+    currentTranslate = 0;
+    
+    // Resume animation after a short delay
+    setTimeout(() => {
+      animationPaused = false;
+      track.style.animationPlayState = 'running';
+      track.style.transform = '';
+    }, 300);
   });
 
-  images.forEach(img => observer.observe(img));
+  // Mouse drag for desktop
+  gallery.addEventListener('mousedown', (e) => {
+    startX = e.clientX;
+    isDragging = true;
+    animationPaused = true;
+    track.style.animationPlayState = 'paused';
+    gallery.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const currentX = e.clientX;
+    const diff = currentX - startX;
+    currentTranslate = diff;
+    
+    const currentTransform = track.style.transform || 'translateX(0)';
+    const match = currentTransform.match(/translateX\(([^)]+)\)/);
+    const baseTranslate = match ? parseFloat(match[1]) : 0;
+    track.style.transform = `translateX(${baseTranslate + diff}px)`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    startX = 0;
+    currentTranslate = 0;
+    gallery.style.cursor = 'grab';
+    
+    setTimeout(() => {
+      animationPaused = false;
+      track.style.animationPlayState = 'running';
+      track.style.transform = '';
+    }, 300);
+  });
+
+  // Set cursor style
+  gallery.style.cursor = 'grab';
 }
 
 
