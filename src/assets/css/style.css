@@ -788,6 +788,7 @@ body {
   grid-template-columns: 1fr;
   gap: var(--element-gap);
   margin-top: var(--element-gap);
+  width: 100%;
 }
 
 .event-detail,
@@ -819,7 +820,7 @@ body {
   box-shadow: none;
   max-width: 560px;
   width: 100%;
-  margin: 0;
+  margin: 0 auto;
   text-align: center;
 }
 
@@ -1031,7 +1032,7 @@ body {
 }
 
 .calendar-row.header div {
-  background: rgba(150, 150, 150, 0.3);
+  background: rgba(150, 150, 150, 0.6);
   font-weight: 700;
   font-size: clamp(13px, 2.3vw, 16px);
   border-radius: 0;
@@ -1046,13 +1047,13 @@ body {
 .calendar-row.header div:first-child {
   margin-left: 0;
   padding-left: clamp(10px, 2vw, 14px);
-  border-radius: 4px 0 0 4px;
+  border-radius: 0;
 }
 
 .calendar-row.header div:last-child {
   margin-right: 0;
   padding-right: clamp(10px, 2vw, 14px);
-  border-radius: 0 4px 4px 0;
+  border-radius: 0;
 }
 
 .calendar-row div.highlight {
@@ -1063,30 +1064,29 @@ body {
 }
 
 .calendar-row div.highlight::before {
-  content: "";
+  content: "♥";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(42px, 8vw, 56px);
-  height: clamp(42px, 8vw, 56px);
-  border: clamp(2.5px, 0.5vw, 3.5px) solid #6ba3d8;
-  border-radius: 50%;
+  font-size: clamp(48px, 10vw, 64px);
+  color: #ff6b9d;
   z-index: -1;
+  opacity: 0.85;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
 }
 
 .calendar-row div.highlight::after {
-  content: "";
-  position: absolute;
-  top: clamp(-6px, -1vw, -8px);
-  left: 50%;
-  transform: translateX(-50%) rotate(180deg);
-  width: 0;
-  height: 0;
-  border-left: clamp(6px, 1.2vw, 8px) solid transparent;
-  border-right: clamp(6px, 1.2vw, 8px) solid transparent;
-  border-bottom: clamp(10px, 2vw, 14px) solid #6ba3d8;
-  z-index: -1;
+  content: none;
 }
 
 @media (min-width: 992px) {
@@ -1151,11 +1151,12 @@ body {
 }
 
 .form-container {
-  background: var(--card);
+  background: transparent;
+  backdrop-filter: none;
   padding: var(--card-padding);
-  border-radius: 15px;
-  box-shadow: var(--shadow-lg);
-  border: 2px solid var(--accent);
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
 }
 
 .form-control {
@@ -1164,19 +1165,19 @@ body {
   line-height: var(--lh-normal);
   font-weight: 500;
   border: 2px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 0;
   padding: clamp(10px, 2vw, 14px);
   margin-bottom: clamp(10px, 2vw, 14px);
   transition: all 300ms ease;
   width: 100%;
-  background: #fafafa;
+  background: transparent;
 }
 
 .form-control:focus {
-  border-color: var(--accent);
+  border-color: #6ba3d8;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
-  background: white;
+  box-shadow: 0 0 0 3px rgba(107, 163, 216, 0.15);
+  background: transparent;
 }
 
 .form-control::placeholder {
@@ -1185,23 +1186,29 @@ body {
 
 .btn-submit {
   font-family: "Montserrat", sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(16px, 2.5vw, 18px);
   line-height: var(--lh-tight);
-  background: var(--accent);
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4d8b 50%, #ff2f78 100%);
   border: none;
   padding: clamp(14px, 2.5vw, 18px) clamp(20px, 4vw, 40px);
-  border-radius: 8px;
+  border-radius: 0;
   color: white;
-  width: 100%;
+  width: 33.333%;
   transition: all 300ms ease;
   cursor: pointer;
+  box-shadow: 0 8px 25px rgba(255, 47, 120, 0.5), 
+              0 4px 12px rgba(255, 107, 157, 0.3),
+              0 2px 8px rgba(0, 0, 0, 0.15);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .btn-submit:hover {
-  background: #a93226;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, #ff4d8b 0%, #ff2f78 50%, #ff1066 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(255, 47, 120, 0.6),
+              0 6px 18px rgba(255, 107, 157, 0.4),
+              0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* album */
@@ -1504,33 +1511,54 @@ body.lightbox-open {
     font-size: clamp(24px, 4.5vw, 30px);
   }
 
+  .calendar-pane {
+    padding: clamp(20px, 3vw, 30px) clamp(10px, 2vw, 20px);
+    max-width: 100%;
+    margin: 0;
+    width: 100%;
+  }
+
+  .event-layout {
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .event-detail {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
   .event-detail .event-block {
-    .event-detail .event-block {
-      padding: clamp(12px, 2.5vw, 16px);
-    }
+    padding: clamp(12px, 2.5vw, 16px);
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+  }
 
-    .calendar {
-      gap: clamp(5px, 1vw, 8px);
-      padding: clamp(16px, 3vw, 24px);
-      max-height: 50svh;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
+  .calendar {
+    gap: clamp(5px, 1vw, 8px);
+    padding: clamp(16px, 3vw, 24px);
+    max-height: 50svh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
-    .calendar-row div {
-      font-size: clamp(14px, 2.5vw, 18px);
-      min-height: clamp(36px, 6vw, 48px);
-      padding: clamp(8px, 1.5vw, 12px);
-    }
+  .calendar-row div {
+    font-size: clamp(14px, 2.5vw, 18px);
+    min-height: clamp(36px, 6vw, 48px);
+    padding: clamp(8px, 1.5vw, 12px);
+  }
 
-    .calendar-row div.highlight::before {
-      width: clamp(38px, 7vw, 50px);
-      height: clamp(38px, 7vw, 50px);
-    }
+  .calendar-row div.highlight::before {
+    width: clamp(38px, 7vw, 50px);
+    height: clamp(38px, 7vw, 50px);
+  }
 
-    .form-container {
-      padding: clamp(14px, 3vw, 20px);
-    }
+  .form-container {
+    padding: clamp(14px, 3vw, 20px);
+  }
 
     /* COMMENTED OUT
   .couple-name {on: column;
