@@ -328,6 +328,96 @@ function setupAlbumLightbox() {
 }
 
 /**
+ * Form Submission Handler
+ * Handles RSVP form submission with validation and feedback
+ */
+function setupFormHandler() {
+  const form = document.querySelector('form[aria-labelledby="rsvp-title"]');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Get form data
+    const guestName = document.getElementById('guest-name').value.trim();
+    const relationship = document.getElementById('relationship').value.trim();
+    const wishes = document.getElementById('wishes').value.trim();
+    const companions = document.getElementById('companions').value.trim();
+
+    // Validate required fields
+    if (!guestName || !relationship) {
+      showNotification('Vui lòng điền đầy đủ thông tin bắt buộc!', 'error');
+      return;
+    }
+
+    // Show loading state
+    const submitBtn = form.querySelector('.btn-submit');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span>Đang gửi...</span>';
+    submitBtn.disabled = true;
+
+    try {
+      const formData = new FormData();
+      formData.append('entry.1855860564', guestName);      // Tên của bạn
+      formData.append('entry.2131130553', relationship);   // Mối quan hệ
+      formData.append('entry.172759615', wishes);          // Lời chúc
+      formData.append('entry.162933616', companions);      // Người đi cùng
+
+      await fetch(form.action, {
+        method: 'POST',
+        mode: 'no-cors',  // Required for Google Forms
+        body: formData
+      });
+
+      // Show success message
+      showNotification('Cảm ơn bạn đã xác nhận tham dự! 💕', 'success');
+      
+      // Reset form
+      form.reset();
+
+    } catch (error) {
+      console.error('Submit error:', error);
+      showNotification('Có lỗi xảy ra. Vui lòng thử lại sau!', 'error');
+    } finally {
+      // Restore button state
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+    }
+  });
+}
+
+/**
+ * Show notification message
+ */
+function showNotification(message, type = 'success') {
+  // Remove existing notification if any
+  const existing = document.querySelector('.notification-toast');
+  if (existing) existing.remove();
+
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.className = `notification-toast notification-${type}`;
+  notification.innerHTML = `
+    <div class="notification-content">
+      <span class="notification-icon">${type === 'success' ? '✓' : '⚠'}</span>
+      <span class="notification-message">${message}</span>
+    </div>
+  `;
+
+  // Add to body
+  document.body.appendChild(notification);
+
+  // Trigger animation
+  setTimeout(() => notification.classList.add('show'), 10);
+
+  // Auto remove after 4 seconds
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => notification.remove(), 300);
+  }, 4000);
+}
+
+/**
  * Initialize the application when DOM is loaded
  */
 function init() {
@@ -337,7 +427,8 @@ function init() {
   generateCalendar();
   setupEventListeners();
   bindGalleryActive();
-  setupAlbumLightbox(); // Thêm lightbox functionality
+  setupAlbumLightbox();
+  setupFormHandler();
 
   // Initial check for animations after DOM is loaded
   setTimeout(checkAnimations, 500);
