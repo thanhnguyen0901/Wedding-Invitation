@@ -1219,26 +1219,25 @@ body {
   font-weight: 700;
   font-size: clamp(16px, 2.5vw, 18px);
   line-height: var(--lh-tight);
-  background: linear-gradient(135deg, #ff6b9d 0%, #ff4d8b 50%, #ff2f78 100%);
-  border: none;
+  background: white;
+  border: 2px solid #ff6b9d;
   padding: clamp(14px, 2.5vw, 18px) clamp(20px, 4vw, 40px);
   border-radius: 0;
-  color: white;
+  color: #ff4d8b;
   width: 33.333%;
   min-width: fit-content;
   transition: all 300ms ease;
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(255, 47, 120, 0.5),
-    0 4px 12px rgba(255, 107, 157, 0.3), 0 2px 8px rgba(0, 0, 0, 0.15);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-shadow: none;
   white-space: nowrap;
 }
 
 .btn-submit:hover {
-  background: linear-gradient(135deg, #ff4d8b 0%, #ff2f78 50%, #ff1066 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(255, 47, 120, 0.6),
-    0 6px 18px rgba(255, 107, 157, 0.4), 0 3px 10px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4d8b 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 107, 157, 0.4);
 }
 
 /* location */
@@ -1246,17 +1245,17 @@ body {
   text-align: center;
   padding: 0 var(--section-padding-inline);
   margin-top: var(--element-gap);
-  background: linear-gradient(135deg, #FFD6E7 0%, #FFC9DD 100%);
+  background: linear-gradient(135deg, #ffe8f0 0%, #ffd6e4 50%, #ffc9dd 100%);
   border-top-left-radius: clamp(120px, 25vw, 180px);
   border-top-right-radius: clamp(120px, 25vw, 180px);
-  box-shadow: 0 8px 24px rgba(255, 107, 157, 0.15);
+  box-shadow: 0 8px 24px rgba(255, 107, 157, 0.12);
   width: calc(100% - 2 * var(--section-padding-inline));
   margin-inline: auto;
 }
 
 .location-header {
   padding: clamp(40px, 6vw, 60px) 0 clamp(30px, 5vw, 40px);
-  max-width: 700px;
+  max-width: 1000px;
   margin: 0 auto;
   position: relative;
 }
@@ -1295,17 +1294,19 @@ body {
 
 .location-map {
   padding: 0 0 clamp(40px, 6vw, 60px);
-  max-width: 700px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
 .location-map iframe {
   width: 100%;
-  height: clamp(250px, 50vw, 300px);
+  height: clamp(250px, 35vw, 450px);
   border: none;
   border-radius: clamp(12px, 2vw, 16px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 .map-link {
@@ -1404,6 +1405,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin-top: 1rem;
 }
 
 .thankyou-section img {
