@@ -1,228 +1,230 @@
-# Thiệp Cưới Online - Việt Thanh & Hoài Phương
+# Wedding Invitation Website - Viet Thanh & Hoai Phuong
 
-Website thiệp cưới hiện đại với hiệu ứng động, gallery chạy ngang và lightbox tương tác.
+Modern wedding invitation website with dynamic animations, horizontal gallery, and interactive lightbox.
 
-*(Thêm ảnh chụp màn hình tại đây - đề xuất: `/docs/screenshots/`)*
+*(Add screenshots here - suggested: `/docs/screenshots/`)*
 
-## 📋 Mục Lục
+## 📋 Table of Contents
 
-- [Tính Năng Chính](#-tính-năng-chính)
-- [Cấu Trúc Dự Án](#-cấu-trúc-dự-án)
-- [Công Nghệ & Phụ Thuộc](#-công-nghệ--phụ-thuộc)
-- [Chạy Dự Án](#-chạy-dự-án)
-- [Hướng Dẫn Tuỳ Biến](#-hướng-dẫn-tuỳ-biến)
-- [Chi Tiết Kỹ Thuật](#-chi-tiết-kỹ-thuật)
+- [Key Features](#-key-features)
+- [Project Structure](#-project-structure)
+- [Technologies & Dependencies](#-technologies--dependencies)
+- [Running the Project](#-running-the-project)
+- [Customization Guide](#-customization-guide)
+- [Technical Details](#-technical-details)
 - [Accessibility & Performance](#-accessibility--performance)
 - [Troubleshooting](#-troubleshooting)
 
-## ✨ Tính Năng Chính
-
-### 🚪 Door Opening Animation
-- Hiệu ứng mở cửa khi tải trang (2s delay)
-- Transform: `translateX(-100%)` (trái) và `translateX(100%)` (phải)
-- Icon trung tâm: "囍" với gradient vàng
+## ✨ Key Features
 
 ### 🎊 Hero Section 
-- Tên cặp đôi với font `Great Vibes` (script)
-- Thông tin sự kiện: 30/11/2025, 19:00
-- Ảnh chính với aspect-ratio 4:3
+- Couple names with `Great Vibes` font (script)
+- Event information: November 30, 2025, 09:00 AM
+- Main photo with responsive design
+- Quote section with cursive typography
 
 ### 👨‍👩‍👧‍👦 Family Information
-- Layout 2 cột (giữ nguyên trên mobile)
-- Hiệu ứng reveal: trái slide từ `translateX(-36px)`, phải từ `translateX(36px)`
-- Class state: `.visible` khi scroll vào viewport
-- Element `#coupleName` với slide-in animation
+- Asymmetric grid layout (4.5fr:5.5fr on mobile)
+- Slide-in animations: left slides from `translateX(-100px)`, right from `translateX(100px)`
+- `.visible` class state when scrolling into viewport
+- Responsive design with minimal gaps on mobile
 
 ### 🎠 Gallery Marquee 
-- CSS-only horizontal scrolling với `animation: marquee 24s linear infinite`
-- Ảnh được **nhân đôi** trong HTML để tạo loop mượt mà
-- Tự động pause khi hover (`:hover` và `:focus-within`)
-- Mask gradient để fade edges: `linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%)`
-- Responsive với `--tile: clamp(16rem, 32vw, 22rem)`
+- CSS-only horizontal scrolling with `animation: marquee 60s linear infinite`
+- Images **duplicated** in HTML for smooth loop
+- Auto-pause on hover (`:hover` and `:focus-within`)
+- Mask gradient for fade edges: `linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%)`
+- Responsive with `--tile: clamp(16rem, 32vw, 22rem)`
 
 ### 📅 Event + Calendar
-- Layout: 2 cột desktop (≥992px) / 1 cột mobile
-- **Canh đáy**: `align-items: end` để đều nhau
-- `generateCalendar()`: tạo November 2025, ngày 30 có class `.wedding-day`
-- Tổng 42 cells (6 rows × 7 days) với previous/next month overflow
+- Layout: Single column responsive design
+- Calendar for November 2025 with highlighted wedding day (30th)
+- Interactive date display with couple photos
+- Heart decoration with animation
 
 ### 📝 RSVP Form
-- Submit đến Google Forms với action: `https://docs.google.com/forms/u/0/d/e/FORM_ID/formResponse`
+- Submits to Google Forms with action URL
 - Entry fields:
-  - `entry.123456`: Tên khách
-  - `entry.123457`: Mối quan hệ
-  - `entry.123458`: Lời chúc
-  - `entry.123459`: Người đi cùng
+  - `entry.1855860564`: Guest name
+  - `entry.2131130553`: Relationship
+  - `entry.172759615`: Wishes
+  - `entry.162933616`: Companions
 
 ### 🖼️ Album + Lightbox
-- Click ảnh trong `#album` mở fullscreen overlay
+- Click images in `#album` opens fullscreen overlay
 - Navigation: Prev/Next buttons, keyboard (←/→/Esc), touch swipe
-- Class states: `.lightbox-overlay.open`, `body.lightbox-open` (chặn scroll)
-- Responsive controls: thu nhỏ buttons trên mobile (≤767px)
+- Class states: `.lightbox-overlay.open`, `body.lightbox-open` (prevent scroll)
+- Mobile-optimized controls with proper positioning
+
+### 📍 Location Section
+- Restaurant information with styled background
+- Embedded Google Maps iframe
+- Direct link to Google Maps for navigation
 
 ### 📱 Responsive Design
 - **Breakpoints**: 767px (mobile), 992px (desktop), 1200px (large)
-- Mobile-first với `clamp()` typography scaling
-- Overflow-x hidden toàn bộ để tránh horizontal scroll
+- Mobile-first with `clamp()` typography scaling
+- Family layout: 4.5:5.5 ratio on mobile, 4:6 on desktop
+- Minimal gaps (2-3px) on mobile for compact design
 
 ### ♿ Accessibility
-- ARIA labels, roles và semantic HTML5
-- Screen reader support với `.sr-only` class
-- Keyboard navigation trong lightbox
-- `prefers-reduced-motion` tắt tất cả animations
-- Focus-visible styles cho keyboard users
+- ARIA labels, roles and semantic HTML5
+- Screen reader support with `.sr-only` class
+- Keyboard navigation in lightbox
+- `prefers-reduced-motion` disables all animations
+- Focus-visible styles for keyboard users
 
-## 📂 Cấu Trúc Dự Án
+## 📂 Project Structure
 
 ```
 src/
-├── index.html                 # HTML chính với semantic structure
-├── assets/
-│   ├── css/
-│   │   └── style.css         # Tất cả styles (1145 lines)
-│   ├── js/
-│   │   └── main.js          # Tất cả JavaScript (288 lines) 
-│   └── images/              # Thư mục ảnh (cần cập nhật)
-│       └── albums/          # Ảnh album cho lightbox
-└── index.html.backup        # File backup gốc
+├── index.html                 # Main HTML file
+├── .nojekyll                 # GitHub Pages configuration
+├── nha-chu-re/
+│   └── index.html            # Groom's family version
+├── nha-co-dau/
+│   └── index.html            # Bride's family version
+└── assets/
+    ├── css/
+    │   └── style.css         # All styles (1750+ lines)
+    ├── js/
+    │   └── main.js          # All JavaScript functionality
+    └── images/
+        ├── albums/          # Album photos for lightbox
+        └── gallery/         # Gallery photos for marquee
 ```
 
-## 🛠️ Công Nghệ & Phụ Thuộc
+## 🛠️ Technologies & Dependencies
 
 ### CDN Libraries
 - **Bootstrap 5.3.0**: `https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css`
 - **Font Awesome 6.4.0**: `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css`
-- **Google Fonts**: `Great Vibes` (script) + `Montserrat` (sans-serif)
+- **Google Fonts**: `Great Vibes` (script), `Playfair Display` (serif), `Montserrat` (sans-serif)
 
 ### CSS Architecture
-- **CSS Variables**: `:root` với color, spacing, typography scales
+- **CSS Variables**: `:root` with color, spacing, typography scales
 - **Modern CSS**: Grid, Flexbox, `clamp()`, custom properties
+- **Mobile-first**: Responsive design with breakpoints
 - **No build tools**: Vanilla CSS/JS, static site
 
-## 🚀 Chạy Dự Án
+## 🚀 Running the Project
 
-### Cục Bộ
+### Local Development
 ```bash
-# Cách 1: Mở trực tiếp
+# Method 1: Open directly
 double-click index.html
 
-# Cách 2: Local server (khuyến nghị)
+# Method 2: Local server (recommended)
 npx serve src
-# hoặc
+# or
 python -m http.server 8000
-# Truy cập: http://localhost:8000
+# Access: http://localhost:8000
 ```
 
-### Deploy lên GitHub Pages
+### Deploy to GitHub Pages
 
-#### Bước 1: Cấu hình Repository
-1. Vào **Settings** → **Pages**
-2. **Source**: Chọn **GitHub Actions** (không chọn branch)
+#### Step 1: Repository Configuration
+1. Go to **Settings** → **Pages**
+2. **Source**: Select **Deploy from a branch**
+3. **Branch**: Select **main** and **/ (root)**
 
-#### Bước 2: Push Code
+#### Step 2: Push Code
 ```bash
 git add .
 git commit -m "Setup GitHub Pages deployment"
 git push origin main
 ```
 
-#### Bước 3: Truy cập Website
+#### Step 3: Access Website
 - URL: `https://<username>.github.io/<repo-name>/`
-- Ví dụ: `https://thanhnguyen0901.github.io/Wedding-Invitation/`
+- Example: `https://thanhnguyen0901.github.io/Wedding-Invitation/`
 
-**Chi tiết**: Xem [DEPLOYMENT.md](./DEPLOYMENT.md)
+**Details**: See [DEPLOYMENT.md](./DEPLOYMENT.md)
 
-### Deploy khác
-- **Netlify/Vercel**: Drag & drop thư mục `src/`
-- **Không cần build step**
+### Other Deployment Options
+- **Netlify/Vercel**: Drag & drop the `src/` folder
+- **No build step required**
 
-## ⚙️ Hướng Dẫn Tuỳ Biến
+## ⚙️ Customization Guide
 
-### 1. Đổi Tên Cặp Đôi
+### 1. Change Couple Names
 ```html
 <!-- Hero section -->
-<h2>Việt Thanh - Hoài Phương</h2>
+<h2>Viet Thanh & Hoai Phuong</h2>
 
-<!-- Couple names -->
-<div class="couple-name" id="coupleName">
-  <span>Nguyễn Việt Thanh</span>
-  <span>Nguyễn Hoài Phương</span>
-</div>
+<!-- Family sections -->
+<p class="person-name">Viet Thanh</p>
+<p class="person-name">Hoai Phuong</p>
 ```
 
-### 2. Cập Nhật Thông Tin Sự Kiện
+### 2. Update Event Information
 ```html
-<!-- Thời gian -->
-<time datetime="2025-11-30T19:00">Saturday - 19:00</time>
-<time datetime="2025-11-30">30 . 11 . 2025</time>
+<!-- Time and date -->
+<time class="time-hour" datetime="2025-11-30T09:00">09:00</time>
+<time class="date-number" datetime="2025-11-30">30.11</time>
+<div class="date-year"><span>20</span><span>25</span></div>
 
-<!-- Địa điểm -->
-<p>Nhà Hàng ABC</p>
-<address>123 Đường Hoa Hồng, Quận 3</address>
-
-<!-- Google Maps -->
-<button onclick="window.open('https://maps.google.com?q=123+Hoa+Hồng+Q3','_blank')">
+<!-- Location -->
+<h3 class="location-name">Thien Huong Wedding Restaurant</h3>
+<p class="location-address">Tan An - An Hoa Hai<br>Tuy An - Phu Yen</p>
 ```
 
-### 3. Đổi Tháng/Calendar 
-**Lưu ý**: Code hiện cố định **November 2025**, ngày cưới **30**
-```javascript
-// Trong main.js - function generateCalendar()
-const firstDayOfWeek = 6;  // Thứ 7 (Saturday) = 6
-const daysInMonth = 30;    // Tháng 11 có 30 ngày
-
-// Ngày cưới
-if (day === 30) {
-  dayElement.className += " wedding-day";
-}
-```
-
-### 4. Cập Nhật Google Forms
+### 3. Change Calendar Month/Date
+**Note**: Code is currently set for **November 2025**, wedding day **30th**
 ```html
-<!-- Thay FORM_ID -->
-<form action="https://docs.google.com/forms/u/0/d/e/YOUR_FORM_ID/formResponse">
+<!-- Calendar highlighting -->
+<div class="highlight">30</div>  <!-- Wedding day -->
 
-<!-- Thay entry numbers -->
-<input name="entry.YOUR_NAME_FIELD" placeholder="Tên của bạn">
-<input name="entry.YOUR_RELATION_FIELD" placeholder="Mối quan hệ">
-<textarea name="entry.YOUR_WISHES_FIELD" placeholder="Lời chúc"></textarea>
-<input name="entry.YOUR_COMPANIONS_FIELD" placeholder="Người đi cùng">
+<!-- Month title -->
+<h3 class="month-year">NOVEMBER - 2025</h3>
 ```
 
-### 5. Thay Hình Ảnh
+### 4. Update Google Forms Integration
+```html
+<!-- Replace FORM_ID -->
+<form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse">
+
+<!-- Replace entry numbers -->
+<input name="entry.YOUR_NAME_FIELD" placeholder="Your name">
+<input name="entry.YOUR_RELATION_FIELD" placeholder="Relationship">
+<textarea name="entry.YOUR_WISHES_FIELD" placeholder="Wishes"></textarea>
+<input name="entry.YOUR_COMPANIONS_FIELD" placeholder="Companions">
+```
+
+### 5. Replace Images
 
 #### Gallery Marquee
 ```html
-<!-- Trong .gallery-track: thêm ảnh lần 1 -->
-<img src="path/to/new-image.jpg" alt="Mô tả" loading="lazy">
+<!-- In .gallery-track: add images once -->
+<img src="path/to/new-image.jpg" alt="Description" loading="lazy">
 
-<!-- Nhân đôi y hệt để loop mượt -->
-<img src="path/to/new-image.jpg" alt="Mô tả" loading="lazy">
+<!-- Duplicate exactly for smooth loop -->
+<img src="path/to/new-image.jpg" alt="Description" loading="lazy">
 ```
 
 #### Album Lightbox
 ```html
-<!-- Thêm trong #album -->
+<!-- Add to #album -->
 <img src="assets/images/albums/new-photo.jpg" 
-     alt="Ảnh cưới - mô tả" loading="lazy">
+     alt="Wedding photo - description" loading="lazy">
 ```
 
-### 6. Thay Màu Thương Hiệu
+### 6. Change Brand Colors
 ```css
 :root {
-  --accent: #c0392b;        /* Màu chính (đỏ) */
-  --ink: #0f172a;          /* Màu text tối */
-  --bg: #fff8f0;           /* Màu nền (kem) */
-  --gold: #d4af37;         /* Màu vàng accent */
-  --muted: #6b7280;        /* Màu text nhạt */
-  --card: #ffffff;         /* Màu thẻ/form */
+  --accent: #2c2c2c;           /* Primary color (dark) */
+  --ink: #1a1a1a;            /* Text color */
+  --bg: #f5f5f5;             /* Background (light) */
+  --gold: #c9b896;           /* Gold accent */
+  --muted: #6b6b6b;          /* Muted text */
+  --card: rgba(255, 255, 255, 0.95); /* Card background */
 }
 ```
 
-### 7. Tuỳ Chỉnh Typography
+### 7. Customize Typography
 ```css
 :root {
-  /* Font sizes - responsive với clamp() */
+  /* Font sizes - responsive with clamp() */
   --fs-h1: clamp(36px, 6vw, 56px);           /* Hero title */
   --fs-h2: clamp(22px, 3.6vw, 28px);         /* Section titles */
   --fs-script-lg: clamp(32px, 5.5vw, 44px);  /* Hero subtitle */
@@ -230,24 +232,24 @@ if (day === 30) {
   --fs-body: clamp(14px, 2vw, 16px);         /* Body text */
   
   /* Line heights */
-  --lh-tight: 1.3;    /* Cho headings */
-  --lh-normal: 1.6;   /* Cho body text */
+  --lh-tight: 1.3;    /* For headings */
+  --lh-normal: 1.6;   /* For body text */
 }
 ```
 
-## 🔧 Chi Tiết Kỹ Thuật
+## 🔧 Technical Details
 
 ### Gallery Marquee Implementation
 ```css
 .gallery-track {
   display: grid;
-  grid-auto-flow: column;           /* Ngang */
-  grid-auto-columns: var(--tile);   /* Kích thước đồng đều */
-  animation: marquee 24s linear infinite;
+  grid-auto-flow: column;           /* Horizontal */
+  grid-auto-columns: var(--tile);   /* Uniform size */
+  animation: marquee 60s linear infinite;
 }
 
 @keyframes marquee {
-  to { transform: translateX(-50%); }  /* Di chuyển 50% = 1 lần lặp */
+  to { transform: translateX(-50%); }  /* Move 50% = 1 loop */
 }
 
 /* Pause on interaction */
@@ -266,42 +268,49 @@ overlay.className = 'lightbox-overlay';
 // State management
 const open = (i) => {
   overlay.classList.add('open');
-  document.body.classList.add('lightbox-open');  // Chặn scroll
+  document.body.classList.add('lightbox-open');  /* Prevent scroll */
 };
 
-// Navigation hỗ trợ
-// - Click/Enter trên ảnh
+// Navigation support
+// - Click/Enter on images
 // - Keyboard: ←/→/Esc  
 // - Touch swipe: deltaX > 50px
+```
+
+### Family Layout Grid System
+```css
+.family-row {
+  display: grid;
+  grid-template-columns: 4fr 6fr;  /* Desktop: 40:60 */
+  gap: clamp(20px, 4vw, 40px);
+}
+
+#familyRowBride {
+  grid-template-columns: 6fr 4fr;  /* Reverse for bride */
+}
+
+/* Mobile optimization */
+@media (max-width: 767px) {
+  .family-row {
+    grid-template-columns: 4.2fr 5.8fr;  /* Mobile: 42:58 */
+    gap: clamp(2px, 0.5vw, 3px);         /* Minimal gap */
+  }
+}
 ```
 
 ### Scroll Reveal Mechanism
 ```javascript
 function checkAnimations() {
-  const trigger = window.innerHeight * (isMobile ? 0.7 : 0.8);
+  const trigger = window.innerHeight * 0.8;
   
   // Add/remove .visible class based on viewport
-  if (rect.top < trigger && rect.bottom > topTrigger) {
+  if (rect.top < trigger && rect.bottom > 0) {
     element.classList.add("visible");
   }
 }
 
-// Liên tục check khi scroll/resize
+// Continuously check on scroll/resize
 window.addEventListener("scroll", checkAnimations);
-```
-
-### Event + Calendar Alignment
-```css
-.event-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;  /* Desktop */
-  align-items: end;                /* Canh đáy */
-}
-
-.event-detail .event-block,
-.calendar-pane .calendar-grid {
-  margin-top: auto;  /* Push xuống đáy */
-}
 ```
 
 ## ♿ Accessibility & Performance
@@ -313,65 +322,65 @@ window.addEventListener("scroll", checkAnimations);
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 ```
 
 ### Performance Optimizations
 - **GPU hints**: `transform: translateZ(0)`, `will-change: transform`
-- **Lazy loading**: `loading="lazy"` trên tất cả ảnh
-- **Font preconnect**: `rel="preconnect"` cho Google Fonts
-- **CDN caching**: External libraries từ CDN
+- **Lazy loading**: `loading="lazy"` on all images
+- **Font preconnect**: `rel="preconnect"` for Google Fonts
+- **CDN caching**: External libraries from CDN
+- **Image optimization**: Proper sizing and compression
 
 ### Keyboard Navigation
-- **Lightbox**: Focus trap, Esc để đóng, Arrow keys navigation
-- **Album images**: `tabindex="0"`, Enter/Space để mở
+- **Lightbox**: Focus trap, Esc to close, Arrow keys navigation
+- **Album images**: `tabindex="0"`, Enter/Space to open
 - **Focus-visible**: Custom outline styles
 
 ## 🐛 Troubleshooting
 
-### Event/Calendar Không Canh Đáy
-```css
-/* Đảm bảo có đủ CSS này */
-.event-layout { align-items: end; }
-.event-detail { display: flex; flex-direction: column; }
-.event-detail .event-block { margin-top: auto; }
-```
+### Gallery Not Looping Smoothly
+- **Cause**: Missing images or not duplicated
+- **Solution**: Each image in track must appear **exactly 2 times**
 
-### Gallery Không Loop Mượt
-- **Nguyên nhân**: Thiếu ảnh hoặc không nhân đôi
-- **Giải pháp**: Mỗi ảnh trong track phải xuất hiện **chính xác 2 lần**
-
-### Google Form Không Submit
+### Google Form Not Submitting
 ```html
-<!-- Kiểm tra FORM_ID và entry numbers -->
-<form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSe.../formResponse">
-<input name="entry.123456">  <!-- Số này phải đúng với Google Form -->
+<!-- Check FORM_ID and entry numbers -->
+<form action="https://docs.google.com/forms/d/e/1FAIpQLSe.../formResponse">
+<input name="entry.123456">  <!-- This number must match Google Form -->
 ```
 
-### Lightbox Không Mở
-- **Kiểm tra selector**: `#album img` phải tồn tại
-- **Console errors**: Có thể thiếu images hoặc path sai
-- **Z-index conflicts**: `.lightbox-overlay` có `z-index: 10050`
+### Lightbox Not Opening
+- **Check selector**: `#album img` must exist
+- **Console errors**: May be missing images or wrong path
+- **Z-index conflicts**: `.lightbox-overlay` has `z-index: 10050`
 
 ### Mobile Performance Issues  
-- **Ảnh lớn**: Tối ưu kích thước, dùng WebP nếu có thể
-- **Smooth scrolling**: Tắt `scroll-behavior: smooth` trên mobile cũ
-- **Touch events**: Đảm bảo `{passive: true}` cho touch listeners
+- **Large images**: Optimize size, use WebP if possible
+- **Smooth scrolling**: Disable `scroll-behavior: smooth` on older mobile
+- **Touch events**: Ensure `{passive: true}` for touch listeners
 
-## 🚀 Lộ Trình Phát Triển
+### Family Layout Issues
+- **Grid not responsive**: Check CSS custom properties and clamp() values
+- **Images not aligned**: Verify `object-fit: cover` and `height: 100%`
+- **Gap too large**: Adjust `clamp()` values in mobile media queries
 
-- [ ] **Đa ngôn ngữ**: i18n cho EN/VI
-- [ ] **CMS tích hợp**: Headless CMS cho nội dung dynamic  
+## 🚀 Development Roadmap
+
+- [ ] **Multi-language**: i18n for EN/VI
+- [ ] **CMS integration**: Headless CMS for dynamic content  
 - [ ] **Image optimization**: WebP conversion, responsive images
 - [ ] **PWA features**: Service worker, offline support
 - [ ] **Analytics**: Google Analytics integration
-- [ ] **Testing**: Unit tests cho JS functions
+- [ ] **Testing**: Unit tests for JS functions
+- [ ] **Backend integration**: Contact form with email notifications
 
-## 📄 Giấy Phép
+## 📄 License
 
-UNLICENSED - Dự án cá nhân
+UNLICENSED - Personal project
 
 ---
 
-*Được xây dựng với ❤️ cho ngày đặc biệt của Việt Thanh & Hoài Phương*
+*Built with ❤️ for the special day of Viet Thanh & Hoai Phuong*
