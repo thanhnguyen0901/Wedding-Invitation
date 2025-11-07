@@ -632,7 +632,6 @@ body > * {
   background: transparent;
   border: none;
   border-radius: 12px;
-  padding: clamp(24px, 4vw, 40px) clamp(20px, 3vw, 32px);
   box-shadow: none;
   max-width: 560px;
   width: 100%;
@@ -1452,7 +1451,6 @@ body.lightbox-open {
   }
 
   .event-detail .event-block {
-    padding: clamp(12px, 2.5vw, 16px);
     margin: 0;
     max-width: 100%;
     width: 100%;
