@@ -1,71 +1,4 @@
 
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    const leftDoor = document.getElementById("leftDoor");
-    const rightDoor = document.getElementById("rightDoor");
-    const centerIcon = document.getElementById("centerIcon");
-    const doorWrapper = document.getElementById("doorWrapper");
-
-    if (leftDoor && rightDoor && centerIcon && doorWrapper) {
-      leftDoor.style.transform = "translateX(-100%)";
-      rightDoor.style.transform = "translateX(100%)";
-      centerIcon.style.display = "none";
-
-      setTimeout(() => {
-        doorWrapper.style.display = "none";
-      }, 2000);
-    }
-  }, 2000);
-});
-
-
-function generateCalendar() {
-  const calendar = document.getElementById("calendar");
-  if (!calendar) return;
-
-  const daysOfWeek = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
-
-
-  daysOfWeek.forEach((day) => {
-    const dayHeader = document.createElement("div");
-    dayHeader.className = "calendar-header";
-    dayHeader.textContent = day;
-    calendar.appendChild(dayHeader);
-  });
-
-  const firstDayOfWeek = 6;
-  const daysInMonth = 30;
-
-
-  for (let i = 0; i < firstDayOfWeek; i++) {
-    const emptyDay = document.createElement("div");
-    emptyDay.className = "calendar-day other-month";
-    const prevMonthDay = 31 - firstDayOfWeek + i + 1;
-    emptyDay.textContent = prevMonthDay;
-    calendar.appendChild(emptyDay);
-  }
-
-
-  for (let day = 1; day <= daysInMonth; day++) {
-    const dayElement = document.createElement("div");
-    dayElement.className = "calendar-day";
-    if (day === 30) {
-      dayElement.className += " wedding-day";
-    }
-    dayElement.textContent = day;
-    calendar.appendChild(dayElement);
-  }
-
-  const totalCells = 42;
-  const filledCells = firstDayOfWeek + daysInMonth;
-  for (let day = 1; filledCells + day - 1 < totalCells; day++) {
-    const nextMonthDay = document.createElement("div");
-    nextMonthDay.className = "calendar-day other-month";
-    nextMonthDay.textContent = day;
-    calendar.appendChild(nextMonthDay);
-  }
-}
-
 /**
  * Scroll animations - continuous effect
  * Handles visibility animations for various elements based on scroll position
@@ -73,9 +6,7 @@ function generateCalendar() {
 function checkAnimations() {
   const groomPhoto = document.querySelector("#familyRowGroom .family-photo");
   const bridePhoto = document.querySelector("#familyRowBride .family-photo");
-  const couple = document.getElementById("coupleName");
   const images = document.querySelectorAll("#album img");
-
 
   const isMobile = window.innerWidth <= 768;
   const trigger = isMobile ? window.innerHeight * 0.7 : window.innerHeight * 0.8;
@@ -100,17 +31,6 @@ function checkAnimations() {
       bridePhoto.classList.remove("visible");
     }
   }
-
-
-  if (couple) {
-    const rect = couple.getBoundingClientRect();
-    if (rect.top < trigger && rect.bottom > topTrigger) {
-      couple.classList.add("visible");
-    } else {
-      couple.classList.remove("visible");
-    }
-  }
-
 
   // Album images animation
   images.forEach((img, index) => {
@@ -429,7 +349,6 @@ function init() {
   // Scroll to top on page load
   scrollToTop();
   
-  generateCalendar();
   setupEventListeners();
   bindGalleryActive();
   setupAlbumLightbox();
