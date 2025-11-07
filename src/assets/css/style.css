@@ -239,6 +239,7 @@ body {
   color: var(--accent);
   margin-bottom: 0;
   animation: fadeInScale 2s ease-out;
+  white-space: nowrap;
 }
 
 @keyframes fadeInScale {
@@ -662,11 +663,13 @@ body {
   color: var(--ink);
   margin-bottom: clamp(24px, 4vw, 32px);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .invitation-subtitle .couple-names {
   font-weight: 600;
   color: var(--accent);
+  white-space: nowrap;
 }
 
 .invitation-gallery {
@@ -1168,6 +1171,7 @@ body {
   line-height: var(--lh-tight);
   color: var(--ink);
   margin-bottom: var(--element-gap);
+  white-space: nowrap;
 }
 
 .form-section {
@@ -1240,16 +1244,18 @@ body {
 /* location */
 .location-section {
   text-align: center;
-  padding: 0;
+  padding: 0 var(--section-padding-inline);
   margin-top: var(--element-gap);
   background: linear-gradient(135deg, #FFD6E7 0%, #FFC9DD 100%);
   border-top-left-radius: clamp(120px, 25vw, 180px);
   border-top-right-radius: clamp(120px, 25vw, 180px);
   box-shadow: 0 8px 24px rgba(255, 107, 157, 0.15);
+  width: calc(100% - 2 * var(--section-padding-inline));
+  margin-inline: auto;
 }
 
 .location-header {
-  padding: clamp(40px, 6vw, 60px) clamp(20px, 4vw, 40px) clamp(30px, 5vw, 40px);
+  padding: clamp(40px, 6vw, 60px) 0 clamp(30px, 5vw, 40px);
   max-width: 700px;
   margin: 0 auto;
   position: relative;
@@ -1288,7 +1294,7 @@ body {
 }
 
 .location-map {
-  padding: 0 clamp(20px, 4vw, 40px) clamp(40px, 6vw, 60px);
+  padding: 0 0 clamp(40px, 6vw, 60px);
   max-width: 700px;
   margin: 0 auto;
 }
@@ -1573,6 +1579,18 @@ body.lightbox-open {
   .section {
     padding-block: 0;
     padding-inline: clamp(10px, 2.5vw, 16px);
+  }
+
+  .section-1 header h2 {
+    font-size: clamp(28px, 5.5vw, 42px);
+  }
+
+  .invitation-subtitle {
+    font-size: clamp(10px, 1.8vw, 13px);
+  }
+
+  #rsvp-title {
+    font-size: clamp(18px, 3.5vw, 24px);
   }
 
   .family-info-wrapper {
