@@ -182,22 +182,26 @@ function setupAlbumLightbox() {
   const btnPrev = overlay.querySelector('.lightbox-prev');
   const btnNext = overlay.querySelector('.lightbox-next');
   let idx = 0;
+  let scrollPosition = 0;
 
   const open = (i) => {
     idx = i;
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    
     const src = imgs[idx].getAttribute('src');
     const alt = imgs[idx].getAttribute('alt') || 'Ảnh';
     imgEl.src = src; 
     imgEl.alt = alt;
-    overlay.classList.add('open');
+    
     document.body.classList.add('lightbox-open');
+    overlay.classList.add('open');
     btnClose.focus();
   };
 
   const close = () => {
     overlay.classList.remove('open');
-    document.body.classList.remove('lightbox-open');
     imgEl.src = '';
+    document.body.classList.remove('lightbox-open');
   };
 
   const prev = () => open((idx - 1 + imgs.length) % imgs.length);

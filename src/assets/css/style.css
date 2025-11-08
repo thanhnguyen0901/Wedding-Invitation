@@ -1288,9 +1288,6 @@ body > * {
 
 body.lightbox-open {
   overflow: hidden !important;
-  position: fixed !important;
-  width: 100% !important;
-  height: 100% !important;
 }
 
 /* responsive */
