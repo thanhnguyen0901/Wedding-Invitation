@@ -33,19 +33,19 @@ function checkAnimations() {
   }
 
   // Album images animation
-  images.forEach((img, index) => {
-    const rect = img.getBoundingClientRect();
-    if (rect.top < trigger && rect.bottom > topTrigger) {
-      img.classList.add("visible");
-    } else {
-      const isLastTwoImages = index >= images.length - 2;
-      const alreadyVisible = img.classList.contains("visible");
-      if (isMobile && isLastTwoImages && alreadyVisible) {
-      } else {
-        img.classList.remove("visible");
-      }
-    }
-  });
+  // images.forEach((img, index) => {
+  //   const rect = img.getBoundingClientRect();
+  //   if (rect.top < trigger && rect.bottom > topTrigger) {
+  //     img.classList.add("visible");
+  //   } else {
+  //     const isLastTwoImages = index >= images.length - 2;
+  //     const alreadyVisible = img.classList.contains("visible");
+  //     if (isMobile && isLastTwoImages && alreadyVisible) {
+  //     } else {
+  //       img.classList.remove("visible");
+  //     }
+  //   }
+  // });
 }
 
 /**
