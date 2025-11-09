@@ -499,24 +499,49 @@ body > * {
   white-space: nowrap;
 }
 
+.gallery-section {
+  margin-block: var(--element-gap);
+  max-width: 100%;
+}
+
 .invitation-gallery {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  --H: clamp(260px, 42vh, 560px);
+  display: grid;
+  grid-template-columns: 3fr 4fr 3fr;
+  align-items: center;
   gap: clamp(12px, 2.5vw, 20px);
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto clamp(20px, 3vw, 30px);
   padding: 0 clamp(10px, 2vw, 20px);
 }
 
-.gallery-left,
-.gallery-right {
-  width: clamp(120px, 25vw, 180px);
+.gallery-left {
+  --itemH: calc(var(--H) * 0.8);
 }
 
 .gallery-center {
-  width: clamp(180px, 35vw, 260px);
-  position: relative;
+  --itemH: var(--H);
+}
+
+.gallery-right {
+  --itemH: calc(var(--H) * 0.8);
+}
+
+.invitation-gallery img {
+  display: block;
+  width: 100%;
+  height: var(--itemH);
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm, 0 8px 24px rgba(0, 0, 0, 0.12));
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.invitation-gallery img:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-md, 0 12px 28px rgba(0, 0, 0, 0.16));
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .heart-decoration {
@@ -524,14 +549,6 @@ body > * {
   display: flex;
   justify-content: center;
   opacity: 0.8;
-  /* width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-  object-fit: cover;
-  display: block;
-  background: transparent;
-  transition: none; */
 }
 
 .heart-decoration img {
@@ -542,50 +559,10 @@ body > * {
   background: transparent;
 }
 
-@media (max-width: 767px) {
-  .invitation-gallery {
-    gap: clamp(8px, 2vw, 12px);
-  }
-
-  .gallery-left,
-  .gallery-right {
-    width: clamp(100px, 22vw, 140px);
-  }
-
-  .gallery-center {
-    width: clamp(140px, 32vw, 200px);
-  }
-}
-
-.gallery-section {
-  margin-block: var(--element-gap);
-  max-width: 100%;
-}
-
-.gallery-section img {
-  width: 100%;
-  height: clamp(280px, 40vw, 380px);
-  border-radius: 12px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-  object-fit: cover;
-  display: block;
-  transform: translateZ(0);
-  transition: transform 300ms ease;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
 @keyframes marquee {
   to {
     transform: translateX(-50%);
   }
-}
-
-.gallery-section:hover .gallery-track,
-.gallery-section:focus-within .gallery-track {
-  animation-play-state: paused;
 }
 
 /* event + calendar */
@@ -1134,17 +1111,12 @@ body > * {
   object-fit: cover;
   box-shadow: var(--shadow-sm);
   will-change: transform, opacity;
-  transform: scale(0.95) translateZ(0);
+  transform: none;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   box-sizing: border-box;
-}
-
-.album-grid img.visible {
-  opacity: 1;
-  transform: scale(1) translateZ(0);
 }
 
 .album-grid img:hover {
@@ -1297,6 +1269,21 @@ body.lightbox-open {
   .section {
     padding-block: 0;
     padding-inline: clamp(14px, 3.5vw, 24px);
+  }
+}
+
+@media (max-width: 640px) {
+  .invitation-gallery {
+    grid-template-columns: 1fr 1.35fr 1fr;
+    --H: clamp(180px, 38vh, 340px);
+    gap: clamp(8px, 2vw, 12px);
+  }
+}
+
+@media (max-width: 420px) {
+  .invitation-gallery {
+    grid-template-columns: 1fr 1.3fr 1fr;
+    --H: clamp(160px, 36vh, 300px);
   }
 }
 
@@ -1540,7 +1527,7 @@ textarea:focus-visible {
     gap: clamp(1px, 0.3vw, 2px);
     padding: 0;
     max-width: 90%;
-    margin: 0 auto;
+    margin: 0 50px;
   }
 
   .calendar-row div {
@@ -1637,12 +1624,12 @@ textarea:focus-visible {
     box-sizing: border-box !important;
   }
 
-  .gallery-section {
+  /* .gallery-section {
     overflow-x: hidden;
     overflow-y: visible;
     width: 100%;
     max-width: 100%;
-  }
+  } */
 
   .thankyou-section {
     overflow-x: hidden;
