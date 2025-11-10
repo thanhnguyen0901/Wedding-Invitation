@@ -1134,8 +1134,6 @@ body > * {
   }
 }
 
-/* thankyou */
-
 .thankyou-section {
   position: relative;
   min-height: auto;
@@ -1623,13 +1621,6 @@ textarea:focus-visible {
     max-width: 100% !important;
     box-sizing: border-box !important;
   }
-
-  /* .gallery-section {
-    overflow-x: hidden;
-    overflow-y: visible;
-    width: 100%;
-    max-width: 100%;
-  } */
 
   .thankyou-section {
     overflow-x: hidden;
