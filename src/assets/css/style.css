@@ -516,15 +516,21 @@ body > * {
 }
 
 .gallery-left {
-  --itemH: calc(var(--H) * 0.8);
+  aspect-ratio: 3/4;
+  width: 100%;
+  object-fit: cover;
 }
 
 .gallery-center {
-  --itemH: var(--H);
+  aspect-ratio: 2/3;
+  width: 100%;
+  object-fit: cover;
 }
 
 .gallery-right {
-  --itemH: calc(var(--H) * 0.8);
+  aspect-ratio: 3/4;
+  width: 100%;
+  object-fit: cover;
 }
 
 .invitation-gallery img {
