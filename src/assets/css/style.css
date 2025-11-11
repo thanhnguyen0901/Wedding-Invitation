@@ -1306,7 +1306,6 @@ body.lightbox-open {
   }
 }
 
-/* High Contrast Mode Support */
 @media (prefers-contrast: high) {
   :root {
     --accent: #000000;
@@ -1316,7 +1315,6 @@ body.lightbox-open {
   }
 }
 
-/* Focus Styles for Keyboard Navigation */
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
